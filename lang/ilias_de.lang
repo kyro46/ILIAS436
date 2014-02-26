@@ -1986,6 +1986,7 @@ common#:#action_aborted#:#Aktion abgebrochen
 common#:#actions#:#Aktionen
 common#:#activate#:#Aktivieren
 common#:#activate_assessment_logging#:#Protokollieren des Test und Assessments aktivieren
+common#:#activate_assessment_history#:#Antwortenhistorie speichern
 common#:#activate_block#:#Aktivieren
 common#:#activate_https#:#HTTPS aktivieren (Payment, Anmeldung)
 common#:#activate_tracking#:#Tracking aktivieren

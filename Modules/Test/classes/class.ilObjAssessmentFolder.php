@@ -188,6 +188,23 @@ class ilObjAssessmentFolder extends ilObject
 	}
 
 	/**
+	 * enable assessment histoy
+	 */
+	function _enableAssessmentHistory($h_enable)
+	{
+		$setting = new ilSetting("assessment");
+	
+		if ($h_enable)
+		{
+			$setting->set("assessment_history", 1);
+		}
+		else
+		{
+			$setting->set("assessment_history", 0);
+		}
+	}	
+	
+	/**
 	* set the log language
 	*/
 	function _setLogLanguage($a_language)
@@ -205,6 +222,16 @@ class ilObjAssessmentFolder extends ilObject
 		$setting = new ilSetting("assessment");
 
 		return (boolean) $setting->get("assessment_logging");
+	}
+	
+	/**
+	 * check wether assessment history is enabled or not
+	 */
+	function _enabledAssessmentHistory()
+	{
+		$setting = new ilSetting("assessment");
+	
+		return (boolean) $setting->get("assessment_history");
 	}
 	
 	/**

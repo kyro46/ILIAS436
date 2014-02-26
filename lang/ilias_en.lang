@@ -1473,6 +1473,7 @@ common#:#action_aborted#:#Action aborted
 common#:#action#:#Action
 common#:#actions#:#Actions
 common#:#activate_assessment_logging#:#Activate Test and Assessment Logging
+common#:#activate_assessment_history#:#Save history of answers
 common#:#activate_block#:#Activate
 common#:#activate_https#:#HTTPS handling by ILIAS<br />(Payment, Login)
 common#:#activate_tracking#:#Activation

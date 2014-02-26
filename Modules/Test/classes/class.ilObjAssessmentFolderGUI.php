@@ -141,6 +141,13 @@ class ilObjAssessmentFolderGUI extends ilObjectGUI
 		$logging->setOptionTitle($this->lng->txt("activate_assessment_logging"));
 		$form->addItem($logging);
 
+		// assessment history
+		$history = new ilCheckboxInputGUI('', "chb_assessment_history");
+		$history->setValue(1);
+		$history->setChecked($this->object->_enabledAssessmentHistory());
+		$history->setOptionTitle($this->lng->txt("activate_assessment_history"));
+		$form->addItem($history);		
+		
 		// reporting language
 		$reporting = new ilSelectInputGUI($this->lng->txt('assessment_settings_reporting_language'), "reporting_language");
 		$languages = $this->lng->getInstalledLanguages();
@@ -210,6 +217,16 @@ class ilObjAssessmentFolderGUI extends ilObjectGUI
 		{
 			$this->object->_enableAssessmentLogging(0);
 		}
+				
+		if ($_POST["chb_assessment_history"] == 1)
+		{
+			$this->object->_enableAssessmentHistory(1);
+		}
+		else
+		{
+			$this->object->_enableAssessmentHistory(0);
+		}		
+		
 		$this->object->_setLogLanguage($_POST["reporting_language"]);
 		$this->object->_setManualScoring($_POST["chb_manual_scoring"]);
 		include_once "./Modules/TestQuestionPool/classes/class.ilObjQuestionPool.php";
@@ -324,7 +341,7 @@ class ilObjAssessmentFolderGUI extends ilObjectGUI
 		$form->addItem($header);
 		
 		// from
-		$from = new ilDateTimeInputGUI($this->lng->txt('cal_from'), "log_from");
+		$from = new ilDateTimeInputGUI($this->lng->txt('cal_from'), "log_from");		
 		$from->setShowDate(true);
 		$from->setShowTime(true);
 		$now = getdate();

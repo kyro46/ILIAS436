@@ -659,6 +659,12 @@ class assTextQuestion extends assQuestion
 			{
 				$this->logAction($this->lng->txtlng("assessment", "log_user_entered_values", ilObjAssessmentFolder::_getLogLanguage()), $active_id, $this->getId());
 			}
+			if (ilObjAssessmentFolder::_enabledAssessmentHistory())
+			{
+				$this->logAction(
+						$text
+						, $active_id, $this->getId());
+			}
 		}
 		else
 		{
