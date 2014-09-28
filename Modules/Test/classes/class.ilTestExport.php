@@ -27,7 +27,7 @@ include_once "Services/Utilities/classes/class.ilFormat.php";
 /**
 * Export class for tests
 *
-* @author Helmut SchottmÃ¼ller <helmut.schottmueller@mac.com>
+* @author Helmut Schottmüller <helmut.schottmueller@mac.com>
 * @version $Id: class.ilTestExport.php 44889 2013-09-20 13:52:50Z mbecker $
 *
 * @ingroup ModulesTest
@@ -322,6 +322,9 @@ class ilTestExport
 		{
 			$worksheet->write($row, $col++, ilExcelUtils::_convert_text($this->lng->txt("name")), $format_title);
 			$worksheet->write($row, $col++, ilExcelUtils::_convert_text($this->lng->txt("login")), $format_title);
+			$worksheet->write($row, $col++, ilExcelUtils::_convert_text($this->lng->txt("matriculation")), $format_title);
+			$worksheet->write($row, $col++, ilExcelUtils::_convert_text("Pruefungsnr."), $format_title);
+				
 		}
 		if (count($additionalFields))
 		{
@@ -384,6 +387,14 @@ class ilTestExport
 				{
 					$worksheet->write($row, $col++, ilExcelUtils::_convert_text($data->getParticipant($active_id)->getName()));
 					$worksheet->write($row, $col++, ilExcelUtils::_convert_text($data->getParticipant($active_id)->getLogin()));
+					$userfields = ilObjUser::_lookupFields($userdata->getUserID());
+					$worksheet->write($row, $col++, ilExcelUtils::_convert_text( $userfields['matriculation'] ) );
+				
+					include_once './Services/User/classes/class.ilUserDefinedData.php';
+					$usr_ids = array($userdata->getUserID());
+					$udf_ids = array("1");
+					$udf_data = ilUserDefinedData::lookupData($usr_ids, $udf_ids);
+					$worksheet->write($row, $col++, ilExcelUtils::_convert_text( $udf_data[$userdata->getUserID()][1] ) );
 				}
 				if (count($additionalFields))
 				{
@@ -780,6 +791,10 @@ class ilTestExport
 			$col++;
 			array_push($datarow, $this->lng->txt("login"));
 			$col++;
+			array_push($datarow, $this->lng->txt("matriculation"));
+			$col++;
+			array_push($datarow, "Pruefungsnr.");
+			$col++;
 		}
 		$additionalFields = $this->test_obj->getEvaluationAdditionalFields();
 		if (count($additionalFields))
@@ -857,6 +872,16 @@ class ilTestExport
 				{
 					array_push($datarow2, $data->getParticipant($active_id)->getName());
 					array_push($datarow2, $data->getParticipant($active_id)->getLogin());
+					$userfields = ilObjUser::_lookupFields($userdata->getUserID());
+					array_push($datarow2, $userfields['matriculation']);
+					
+					include_once './Services/User/classes/class.ilUserDefinedData.php';
+					$usr_ids = array($userdata->getUserID());
+					$udf_ids = array("1");
+					$udf_data = ilUserDefinedData::lookupData($usr_ids, $udf_ids);
+					$userfields = ilObjUser::_lookupFields($userdata->getUserID());
+					array_push($datarow2, $udf_data[$userdata->getUserID()][1]);
+					
 				}
 				if (count($additionalFields))
 				{
